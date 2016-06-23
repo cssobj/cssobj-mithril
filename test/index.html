@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="../node_modules/mithril/mithril.js"></script>
+    <script type="text/javascript" src="../node_modules/cssobj/lib/cssobj.js"></script>
+    <script type="text/javascript" src="../lib/cssobj-mithril.js"></script>
+  </head>
+  <body>
+    <ul class="menu">
+      test font red
+      <li class="item">test font 2</li>
+    </ul>
+  </body>
+</html>
+<script type="text/javascript">
+var obj01 = {
+  'ul.menu': {
+    background_color: 'red',
+    borderRadius: '2px',
+    'li.item, li.cc': {
+      color:'blue',
+      '&:before, .link':{
+        '.foo[title*=\'\\&\'], :global(.xy)':{color:'blue'},
+      },
+      'html:global(.ie8) &':{color:'purple'},
+      font_size: '22px',
+    }
+  }
+}
+
+var mc = cssobj.bindM(m)
+var style = cssobj(obj01)
+
+var v = {
+view(){
+return mc('ul.menu', [
+mc.style(style),
+'test font as red',
+mc('li.item', 'test font with blue')
+])
+}
+}
+
+m.mount(document.body, v)
+
+</script>
