@@ -16,34 +16,9 @@
   </body>
 </html>
 <script type="text/javascript">
-  function stylize(element, sheet){
-  element.type = 'text/css';
-  if (element.styleSheet){
-    element.styleSheet.cssText = sheet;
-  } else {
-    // empty all style when re-apply new style
-    while(element.firstChild) element.removeChild(element.firstChild);
-    element.appendChild(document.createTextNode(sheet));
-  }
-  return element;
-}
-
-var styleDom
-function addStyleToHead(sheet, version) {
-  version=version|0
-	var id = 'style_cssobj_' + version
-	if( document.getElementById(id) ) return;
-	if(!styleDom){
-		var el = document.createElement('style')
-		document.head.appendChild(el)
-		styleDom = el
-	}
-	styleDom.setAttribute('id', id.replace(/\"/g,'&quot;').replace(/\'/g,'&apos;') )
-	return stylize(styleDom, sheet.css)
-}
 
 
-cssobj.use('post', addStyleToHead)
+// cssobj.use('post', addStyleToHead)
 
 var mc = cssobj_m()
 mc.add({
@@ -62,7 +37,7 @@ mc.add({
 })
 
 
-console.log(mc.css({'ul.menu':{color:'abc'}}))
+// console.log(mc.css({'ul.menu':{color:'abc'}}))
 
 var v = {
 view(){
