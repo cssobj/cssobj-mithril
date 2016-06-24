@@ -1,8 +1,12 @@
 
-cssobj.use('post', cssobj_plugin_post_stylize, {attrs: {media: 'screen'}})
+
+cssobj({'ul.!menu.main':{'li.item':{color:'red'}}}, {
+  local:false,
+  post:[cssobj_plugin_post_stylize({attrs: {media: 'screen'}})]
+})
 
 var mc = cssobj_m()
-mc.add({
+mc.css({
   'ul.menu': {
     font_size: '32px',
     background_color: 'red',
@@ -15,6 +19,9 @@ mc.add({
       'html:global(.ie8) &': {color: 'purple'},
     }
   }
+}, {
+  local:true,
+  post:[cssobj_plugin_post_stylize({name:'mimi', attrs: {media: 'screen'}})]
 })
 
 // console.log(mc.css({'ul.menu':{color:'abc'}}))
