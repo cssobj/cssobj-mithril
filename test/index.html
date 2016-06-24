@@ -5,6 +5,7 @@
     <title></title>
     <script type="text/javascript" src="../node_modules/mithril/mithril.js"></script>
     <script type="text/javascript" src="../node_modules/cssobj/lib/cssobj.js"></script>
+    <script type="text/javascript" src="../node_modules/extend_exclude/iife/extend_exclude.js"></script>
     <script type="text/javascript" src="../lib/cssobj-mithril.js"></script>
   </head>
   <body>
@@ -15,8 +16,39 @@
   </body>
 </html>
 <script type="text/javascript">
-var obj01 = {
+  function stylize(element, sheet){
+  element.type = 'text/css';
+  if (element.styleSheet){
+    element.styleSheet.cssText = sheet;
+  } else {
+    // empty all style when re-apply new style
+    while(element.firstChild) element.removeChild(element.firstChild);
+    element.appendChild(document.createTextNode(sheet));
+  }
+  return element;
+}
+
+var styleDom
+function addStyleToHead(sheet, version) {
+  version=version|0
+	var id = 'style_cssobj_' + version
+	if( document.getElementById(id) ) return;
+	if(!styleDom){
+		var el = document.createElement('style')
+		document.head.appendChild(el)
+		styleDom = el
+	}
+	styleDom.setAttribute('id', id.replace(/\"/g,'&quot;').replace(/\'/g,'&apos;') )
+	return stylize(styleDom, sheet.css)
+}
+
+
+cssobj.use('post', addStyleToHead)
+
+var mc = cssobj_m()
+mc.add({
   'ul.menu': {
+    font_size: '32px',
     background_color: 'red',
     borderRadius: '2px',
     'li.item, li.cc': {
@@ -25,18 +57,17 @@ var obj01 = {
         '.foo[title*=\'\\&\'], :global(.xy)':{color:'blue'},
       },
       'html:global(.ie8) &':{color:'purple'},
-      font_size: '22px',
     }
   }
-}
+})
 
-var mc = cssobj.bindM(m)
-var style = cssobj(obj01)
+
+console.log(mc.css({'ul.menu':{color:'abc'}}))
 
 var v = {
 view(){
 return mc('ul.menu', [
-mc.style(style),
+mc('style', mc.css().css),
 'test font as red',
 mc('li.item', 'test font with blue')
 ])

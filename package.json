@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cssobj": "github:futurist/cssobj",
+    "extend_exclude": "github:futurist/extend_exclude",
     "mithril": "^0.2.5"
   }
 }
