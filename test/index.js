@@ -1,0 +1,32 @@
+
+cssobj.use('post', cssobj_plugin_post_stylize, {attrs: {media: 'screen'}})
+
+var mc = cssobj_m()
+mc.add({
+  'ul.menu': {
+    font_size: '32px',
+    background_color: 'red',
+    borderRadius: '2px',
+    'li.item, li.cc': {
+      color: 'blue',
+      '&:before, .link': {
+        ".foo[title*='\\&'], :global(.xy)": {color: 'blue'},
+      },
+      'html:global(.ie8) &': {color: 'purple'},
+    }
+  }
+})
+
+// console.log(mc.css({'ul.menu':{color:'abc'}}))
+
+var v = {
+  view() {
+    return mc('ul.menu', [
+      // mc('style', mc.css().css),
+      'test font as red',
+      mc('li.item', 'test font with blue')
+    ])
+  }
+}
+
+m.mount(document.body, v)

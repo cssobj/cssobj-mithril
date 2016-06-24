@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cssobj": "github:futurist/cssobj",
+    "cssobj-plugin-post-stylize": "github:futurist/cssobj-plugin-post-stylize",
     "extend_exclude": "github:futurist/extend_exclude",
     "mithril": "^0.2.5"
   }
