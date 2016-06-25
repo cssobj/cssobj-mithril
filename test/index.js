@@ -76,6 +76,7 @@ var v2 = {
       // local:true,
       // post:[cssobj_plugin_post_stylize({ attrs: {media: 'screen'}})]
     })
+    console.log(this.mc.css())
   },
   view(ctrl) {
     var mc = ctrl.mc
