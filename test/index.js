@@ -16,7 +16,8 @@ var obj = {
     borderRadius: '2px',
     'li.item, li.cc': {
       color: 'blue',
-      '&:before, .link': {
+      '&:before, &:after': {
+        content:'"---"',
         ".foo[title*='\\&'], :global(.xy)": {color: 'blue'},
       },
       'html:global(.ie8) &': {color: 'purple'},
@@ -55,20 +56,7 @@ m.mount(document.getElementById('menu1'), v)
 //
 // APP 02
 
-var obj2 = {
-  'ul.menu': {
-    font_size: '32px',
-    background_color: 'red',
-    borderRadius: '2px',
-    'li.item, li.cc': {
-      color: 'blue',
-      '&:before, .link': {
-        ".foo[title*='\\&'], :global(.xy)": {color: 'blue'},
-      },
-      'html:global(.ie8) &': {color: 'purple'},
-    }
-  }
-}
+var obj2 = JSON.parse(JSON.stringify(obj))
 
 var v2 = {
   controller: function(){
