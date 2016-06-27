@@ -35,6 +35,7 @@ var v = {
       post:[cssobj_plugin_post_stylize({name:'mimi', attrs: {media: 'screen'}})]
     })
     this.dom = document.getElementById('style_cssobj_mimi')
+    this.prev = this.mc.css().map.item
   },
   view(ctrl) {
     var mc = ctrl.mc
@@ -42,9 +43,12 @@ var v = {
       // mc('style', mc.css().css),
       'test font as red',
       mc('li', ['head css dom is: ',typeof ctrl.dom]),
+      mc('li', ['css for item is same? (expected:false) ', ctrl.isSame]),
       mc('li.item', {onclick:function() {
+        mc.option().prefix=false
         mc.remove({'ul.menu':{font_size:1}})
-        console.log(mc.obj())
+        ctrl.isSame = mc.css().map.item === ctrl.prev
+        ctrl.prev = mc.css().map.item
       }}, 'test font with blue')
     ])
   }
@@ -74,7 +78,7 @@ var v2 = {
       mc('style', mc.css().css),
       'test font as red',
       mc('li', ['first char of item name: ', mc.css().map.item[0]]),
-      mc('li', ['prev item class is same?', ctrl.isSame]),
+      mc('li', ['prev item class is same? (expected:true) ', ctrl.isSame]),
       mc('li.item', {onclick:function() {
         mc.add({'ul.menu':{line_height:'50px'}})
         console.log(mc.obj())
