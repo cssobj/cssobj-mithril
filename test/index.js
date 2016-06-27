@@ -37,7 +37,7 @@ var v = {
     this.dom = document.getElementById('style_cssobj_mimi')
     this.prev = this.mc.css().map.item
   },
-  view(ctrl) {
+  view: function(ctrl) {
     var mc = ctrl.mc
     return mc('ul.menu', [
       // mc('style', mc.css().css),
@@ -72,7 +72,7 @@ var v2 = {
     })
     this.prev = this.mc.css().map.item
   },
-  view(ctrl) {
+  view: function(ctrl) {
     var mc = ctrl.mc
     return mc('ul.menu', [
       mc('style', mc.css().css),
