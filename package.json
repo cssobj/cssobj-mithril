@@ -2,7 +2,7 @@
   "name": "cssobj-mithril",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/cssobj-mithril.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
