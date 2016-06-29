@@ -43,7 +43,7 @@ var v = {
       // mc('style', mc.css().css),
       'test font as red',
       mc('li', ['head css dom is: ',typeof ctrl.dom]),
-      mc('li', ['css for item is same? (expected:false) ', ctrl.isSame]),
+      mc('li', 'css for item is same? (expected:false) ', ctrl.isSame, ctrl.prev),
       mc('li.item', {onclick:function() {
         mc.option().prefix=false
         mc.remove({'ul.menu':{font_size:1}})
@@ -78,7 +78,7 @@ var v2 = {
       mc('style', mc.css().css),
       'test font as red',
       mc('li', ['first char of item name: ', mc.css().map.item[0]]),
-      mc('li', ['prev item class is same? (expected:true) ', ctrl.isSame]),
+      mc('li', 'prev item class is same? (expected:true) ', ctrl.isSame, ctrl.prev),
       mc('li.item', {onclick:function() {
         mc.add({'ul.menu':{line_height:'50px'}})
         console.log(mc.obj())
