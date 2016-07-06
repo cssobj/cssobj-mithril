@@ -11,6 +11,7 @@
   "dependencies": {
     "cssobj": "github:futurist/cssobj",
     "cssobj-plugin-post-stylize": "github:futurist/cssobj-plugin-post-stylize",
-    "extend_exclude": "github:futurist/extend_exclude"
+    "extend_exclude": "github:futurist/extend_exclude",
+    "objutil": "^1.0.9"
   }
 }

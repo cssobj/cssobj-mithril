@@ -15,6 +15,7 @@ var obj = {
     background_color: 'red',
     borderRadius: '2px',
     'li.item, li.cc': {
+      $id:'abc',
       color: 'blue',
       '&:before, &:after': {
         content:'"---"',
@@ -42,7 +43,11 @@ var v = {
     return mc('ul.menu', [
       // mc('style', mc.css().css),
       'test font as red',
-      mc('li', ['head css dom is: ',typeof ctrl.dom]),
+      mc('li', {onclick:function() {
+        var result = mc.css()
+        result.vars.abc.prop.color = 'green'
+        result.update()
+      }}, ['head css dom is: ',typeof ctrl.dom]),
       mc('li', 'css for item is same? (expected:false) ', ctrl.isSame, ctrl.prev),
       mc('li.item', {onclick:function() {
         mc.option().prefix=false
