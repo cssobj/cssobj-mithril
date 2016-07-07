@@ -33,7 +33,9 @@ var v = {
     this.mc = cssobj_m()
     this.mc.css(obj, {
       local:true,
-      post:[cssobj_plugin_post_stylize({name:'mimi', attrs: {media: 'screen'}})]
+      plugins:{
+        post:[cssobj_plugin_post_stylize({name:'mimi', attrs: {media: 'screen'}})]
+      }
     })
     this.dom = document.getElementById('style_cssobj_mimi')
     this.prev = this.mc.css().map.item
@@ -45,7 +47,7 @@ var v = {
       'test font as red',
       mc('li', {onclick:function() {
         var result = mc.css()
-        result.vars.abc.prop.color = 'green'
+        result.ref.abc.color = 'green'
         result.update()
       }}, ['head css dom is: ',typeof ctrl.dom]),
       mc('li', 'css for item is same? (expected:false) ', ctrl.isSame, ctrl.prev),
