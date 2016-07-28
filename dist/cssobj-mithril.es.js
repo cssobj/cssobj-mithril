@@ -1,14 +1,14 @@
+import m from 'mithril';
+
 var hasOwn = {}.hasOwnProperty
 var type = {}.toString
 var OBJECT = type.call({})
-
-import m from 'mithril'
 
 function isObject (object) {
   return type.call(object) === OBJECT
 }
 
-export default function bindM (cssStore, M) {
+function bindM (cssStore, M) {
   M = M || m
   if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
 
@@ -106,3 +106,5 @@ function assignAttrs (target, attrs, classes, cssStore) {
 
   if (classes.length) target[classAttr] = classes.join(' ')
 }
+
+export default bindM;
