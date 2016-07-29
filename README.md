@@ -2,6 +2,24 @@
 
 Apply cssobj local class names into mithril.
 
+## Why?
+
+[cssobj](https://github.com/cssobj/cssobj) already have API for easy use with mithril as below:
+
+``` javascript
+var result = cssobj(obj)
+... ...
+view: function(){
+  return m( result.map('li.item'), {class: result.map2('active news')} )
+}
+```
+
+But if you don't like the long `result.map` function, you can try this lib to simplify.
+
+This lib is just syntax sugar for the above code.
+
+To do this, we have to replace the `m` function with `mc`, as a pre-processer, see below.
+
 ## Install
 
 ```bash
@@ -18,7 +36,9 @@ var mc = cssobj_mithril(result, m) // m === mithril.m
 
 var component = {
   view: function(){
+
     return mc('li.item', {class:'news !active'})
+
     // rendered with cssobj local class names:
     // <li class="_4vsdei1_item _4vsdei1_news active">
   }
@@ -41,20 +61,29 @@ Please see **test** folder for more info.
 
 #### `m`
 
-**mithril m** Method, can be omitted if it's in global space.
+**mithril m** Function, can be omitted if it's in global space.
 
 #### *RETURN*
 
-**mithril m** pre processer Method, will lookup the cssobj result object for localized class names.
+#### `mc`
 
-The below 2 codes is equivalent:
+**mithril m** pre processer Function(`mc`), will lookup the cssobj result object for localized class names.
+
+ - `mc`: [Function] The signature is same as [m](http://mithril.js.org/mithril.html#signature)
+ - `mc.result`: [Object] Just a shortcut reference to `result` param passed in. `mc.result === result`
+
+The below 2 codes are equivalent:
 
 ```javascript
-return mc('li.item', {class:'active news'})
+view: function(){
+  return mc('li.item', {class:'active news'})
+}
 ```
 
 ```javascript
-return m( result.map('li.item'), {class: result.map2('active news')} )
+view: function(){
+  return m( result.map('li.item'), {class: result.map2('active news')} )
+}
 ```
 
 See, it's simplify the usage for cssobj with mithril.

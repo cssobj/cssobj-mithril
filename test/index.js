@@ -86,10 +86,19 @@ var com = {
 
 m.mount(document.getElementById('menu1'), com)
 
+displayHTML()
+
 
 // hellper function to display CSSOM text
 
+function displayHTML() {
+  setTimeout(function() {
+    document.getElementById('htmltext').value = document.getElementById('menu1').innerHTML.replace(/<a|<li/gi, '\n  $&')
+  })
+}
+
 function displayCSS(result) {
+  displayHTML()
   var cb = function(str) {
     document.getElementById('csstext').value = str
   }
