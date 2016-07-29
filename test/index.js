@@ -1,6 +1,6 @@
 
 var css = {
-  textarea:{width:'500px', height:'300px'},
+  textarea:{width:'600px', height:'120px'},
   '#menu1':{
     fontFamily: 'Arial,Helvetica',
     fontSize: '16px',
@@ -45,7 +45,6 @@ var com = {
     // get mc instance from result and m
     self.mc = cssobj_mithril(result, m)
 
-
     // mithril model part
     var name = 0
     var nameArr = ['username', 'James Yang', 'Jason Zhou']
@@ -71,11 +70,14 @@ var com = {
         mc.result.update()
       }}, 'Update Name'),
 
-      mc('li', 'User Profile'),
+      // mc also work with component
+      mc({view:function() {
+        return m('li', 'User Profile')
+      }}),
 
       mc('li.item.active', 'Name: '+ctrl.getName()),
 
-      mc('li.item', {onclick:ctrl.updateAge}, 'Age: '+ctrl.age + ' [+ click +] '),
+      mc('li.item', {class: ':global(.item nav) .nav', onclick:ctrl.updateAge}, 'Age: '+ctrl.age + ' [+ click +] '),
 
       mc('li.!item', 'Company: abc')
     ])
