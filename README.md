@@ -2,6 +2,8 @@
 
 Apply cssobj local class names into mithril.
 
+[SEE DEMO](https://cssobj.github.io/cssobj-mithril/test/)
+
 ## Why?
 
 [cssobj](https://github.com/cssobj/cssobj) already have API for using with mithril as below:
