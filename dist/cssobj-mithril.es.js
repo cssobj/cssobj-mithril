@@ -14,12 +14,12 @@ function bindM (cssStore, M) {
   M = M || m
   if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
 
-  var applyMap2 = function (attrs) {
+  var mapClass = function (attrs) {
     if(!isObject(attrs)) return
     var classAttr = 'class' in attrs ? 'class' : 'className'
     var classObj = attrs[classAttr]
     if (classObj)
-      attrs[classAttr] = cssStore.map2(classObj)
+      attrs[classAttr] = cssStore.mapClass(classObj)
   }
 
   var c = function (tag, pairs) {
@@ -36,8 +36,8 @@ function bindM (cssStore, M) {
 				"be a string")
 		}
 
-    applyMap2(pairs)
-    return M.apply( null, [cssStore.map(tag)].concat(args) )
+    mapClass(pairs)
+    return M.apply( null, [cssStore.mapSel(tag)].concat(args) )
   }
 
   c.result = cssStore

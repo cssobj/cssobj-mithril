@@ -4,17 +4,17 @@ Apply cssobj local class names into mithril.
 
 ## Why?
 
-[cssobj](https://github.com/cssobj/cssobj) already have API for easy use with mithril as below:
+[cssobj](https://github.com/cssobj/cssobj) already have API for using with mithril as below:
 
 ``` javascript
 var result = cssobj(obj)
 ... ...
 view: function(){
-  return m( result.map('li.item'), {class: result.map2('active news')} )
+  return m( result.mapSel('li.item'), {class: result.mapClass('active news')} )
 }
 ```
 
-But if you don't like the long `result.map` function, you can try this lib to simplify.
+But if you don't like the long `result.mapSel`, `result.mapClass` function, you can try this lib to simplify.
 
 This lib is just syntax sugar for the above code.
 
@@ -47,7 +47,7 @@ var component = {
 
 Then `mc` can be used as `m` in all cases, with the benefit for auto apply localized class names for **classes**
 
-Please see **test** folder for more info.
+Please see **test/** folder for more info.
 
 ## API
 
@@ -82,7 +82,7 @@ view: function(){
 
 ```javascript
 view: function(){
-  return m( result.map('li.item'), {class: result.map2('active news')} )
+  return m( result.mapSel('li.item'), {class: result.mapClass('active news')} )
 }
 ```
 

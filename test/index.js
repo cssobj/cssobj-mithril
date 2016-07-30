@@ -12,12 +12,14 @@ var css = {
           $id: 'item',
           color: 'blue',
           fontSize: [16, function(prev, node, result) {
-            return result.data.age + 'px'
+            return result.data.age ? result.data.age + 'px' : prev
           }]
         },
         '&.item.active':{
           $id: 'active',
-          color: 'purple'
+          color: ['purple', function(prev, node, result) {
+            return result.data.color || prev
+          }]
         }
       },
       'li:global(.item)':{
@@ -47,11 +49,14 @@ var com = {
 
     // mithril model part
     var name = 0
+    var colorArr = ['brown', 'orange', 'cyan']
     var nameArr = ['username', 'James Yang', 'Jason Zhou']
     self.age = 16
     self.getName = function(next) {
       if(next) name++
-      return nameArr[name % nameArr.length]
+      var len = nameArr.length
+      result.update({color: colorArr[name % len]})
+      return nameArr[name % len]
     }
     self.updateAge = function() {
       self.age++
@@ -66,8 +71,6 @@ var com = {
 
       mc('a[href="#"]', {onclick:function(e) {
         ctrl.name = ctrl.getName(true)
-        mc.result.ref.active.obj.color = 'aqua'
-        mc.result.update()
       }}, 'Update Name'),
 
       // mc also work with component
