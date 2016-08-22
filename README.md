@@ -1,5 +1,7 @@
 # cssobj-mithril
 
+[![Build Status](https://travis-ci.org/cssobj/cssobj-mithril.svg?branch=master)](https://travis-ci.org/cssobj/cssobj-mithril)
+
 Apply cssobj local class names into mithril.
 
 [SEE DEMO](https://cssobj.github.io/cssobj-mithril/test/)
