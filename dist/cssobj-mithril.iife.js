@@ -43,6 +43,12 @@ var cssobj_mithril = (function (m) {
       return M.apply( null, [cssStore.mapSel(tag)].concat(args) )
     }
 
+    c.old = M
+
+    for(var i in M) {
+      c[i] = M[i]
+    }
+
     c.result = cssStore
 
     return c

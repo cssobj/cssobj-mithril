@@ -29,6 +29,11 @@ describe('test for cssobj-mithril', function() {
 
     expect(render(mc('li.red:global(.orange)', {class:'blue !orange'})))
       .equal('<li class="prefix_red orange  prefix_blue orange"></li>')
+
+    // old m will not alter class
+    expect(render(mc.old('li.red.orange', {class:'blue orange'})))
+      .equal('<li class="red orange blue orange"></li>')
+
   })
 
   it('should map selector with component', function() {
@@ -44,6 +49,14 @@ describe('test for cssobj-mithril', function() {
     expect(render(mc(component)))
       .equal('<li class="prefix_item  prefix_news active"></li>')
 
+  })
+
+  it('should keep all m functions', function() {
+    var result = cssobj(obj)
+    var m = cssobj_mithril(result)
+    expect(typeof m.old).equal('function')
+    expect(typeof m.prop).equal('function')
+    expect(typeof m.redraw).equal('function')
   })
 
 })
