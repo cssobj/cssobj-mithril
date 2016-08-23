@@ -20,7 +20,6 @@
   "author": "James Yang <jamesyang999@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "cssobj": "github:cssobj/cssobj",
     "mithril": "^0.2.5"
   },
   "devDependencies": {
