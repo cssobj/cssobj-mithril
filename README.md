@@ -26,43 +26,56 @@ To do this, we have to replace the `m` function with new `m`, see below.
 
 ## Install
 
+**NPM**
+
 ```bash
-npm install cssobj/cssobj-mithril
+npm install cssobj-mithril
 ```
+
+**BOWER**
+
+```bash
+bower install cssobj-mithril
+```
+
 
 ## Usage
 
 Used with cssobj as below:
 
 ```javascript
+// init cssobj result
 var cssobj = require('cssobj')
-var cssobj_mithril = require('cssobj-mithril')
-
 var result = cssobj(obj)
 
-// instead of:
+// **** original way as below ****
 // var m = require('mithril')
-// using below:
-var m = cssobj_mithril(result)
 
+// **** use cssobj-mithril instead of above ****
+var m = require('cssobj-mithril')(result)
+
+// consume `m` as original way, don't change anything!
+// except `selector` and `class` will accept `:global` and `!`
 var component = {
   view: function(){
 
-    return m('li.item', {class:'news !active'})
+    return m('li.item', {class:'news !active'}, 'hello')
 
-    // rendered with cssobj local class names:
-    // <li class="_4vsdei1_item _4vsdei1_news active">
+    // rendered DOM result:
+    // <li class="_4vsdei1_item _4vsdei1_news active">hello</li>
+
   }
 }
 ```
 
-Then use `m` in all cases, with the benefit for auto apply localized class names for **classes**
+Use `m` in all cases as usual, with the benefit fo local class names.
 
 Please see **test/** folder for more info.
 
 ## API
 
-### `var m = cssobj_mithril( result, m )`
+### `CommonJS: var m = require('cssobj-mithril')( result, m )`
+### `Global:   var m = cssobj_mithril( result, m )`
 
 #### *PARAMS*
 
@@ -70,15 +83,15 @@ Please see **test/** folder for more info.
 
 **cssobj() result** Object, with `local=true`, or `local=false`.
 
-#### `m`
+#### `m` (optional)
 
-**mithril m** Function, can be omitted if it's in global space.
+Which **mithril m** function to inject, can be omitted if `m` already in global space.
 
 #### *RETURN*
 
 #### `m`
 
-**mithril m** pre processer Function(`m`), will lookup the cssobj result object for localized class names.
+**mithril m** pre processor Function(`m`), will lookup the cssobj result object for local class names.
 
  - `m`: [Function] The signature is same as [m](http://mithril.js.org/mithril.html#signature)
  - `m.result`: [Object] Just a shortcut reference to `result` param passed in. `mc.result === result`
