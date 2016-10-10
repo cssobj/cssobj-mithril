@@ -44,15 +44,17 @@ bower install cssobj-mithril
 Used with cssobj as below:
 
 ```javascript
-// init cssobj result
-var cssobj = require('cssobj')
-var result = cssobj(obj)
+// init mithril
+var mithril = require('mithril')
 
-// **** original way as below ****
-// var m = require('mithril')
+// get a factory function from old mithril
+var M = require('cssobj-mithril')(mithril)
 
-// **** use cssobj-mithril instead of above ****
-var m = require('cssobj-mithril')(result)
+// get cssobj result
+var result = require('cssobj')(obj)
+
+// **** replace m!! ****
+var m = M(result)
 
 // consume `m` as original way, don't change anything!
 // except `selector` and `class` will accept `:global` and `!`
@@ -74,18 +76,18 @@ Please see **test/** folder for more info.
 
 ## API
 
-### `CommonJS: var m = require('cssobj-mithril')( result, m )`
-### `Global:   var m = cssobj_mithril( result, m )`
+### `CommonJS: var m = require('cssobj-mithril')( m )( result )`
+### `Global:   var m = cssobj_mithril( m )( result )`
 
 #### *PARAMS*
-
-#### `result`
-
-**cssobj() result** Object, with `local=true`, or `local=false`.
 
 #### `m` (optional)
 
 Which **mithril m** function to inject, can be omitted if `m` already in global space.
+
+#### `result`
+
+**cssobj() result** Object, with `local=true`, or `local=false`.
 
 #### *RETURN*
 

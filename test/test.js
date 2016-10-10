@@ -4,6 +4,9 @@ var cssobj_core = require('cssobj-core')
 var cssobj_mithril = require('../dist/cssobj-mithril.cjs.js')
 var render = require('mithril-node-render')
 
+// bind to mithril
+var mithril = cssobj_mithril(require('mithril'))
+
 var obj = {
   '.red':{
     color:'red',
@@ -20,12 +23,11 @@ var obj = {
 }
 
 var cssobj = cssobj_core({plugins:[localize('prefix_')]})
+var mc, rewrite
 
-describe('test for cssobj-mithril', function() {
+function testSuite (it) {
 
   it('should map selector and class list', function() {
-    var result = cssobj(obj)
-    var mc = cssobj_mithril(result)
 
     expect(render(mc('li.red:global(.orange)', {class:'blue !orange'})))
       .equal('<li class="prefix_red orange  prefix_blue orange"></li>')
@@ -38,7 +40,7 @@ describe('test for cssobj-mithril', function() {
 
   it('should map selector with component', function() {
     var result = cssobj(obj)
-    var mc = cssobj_mithril(result)
+    var mc = mithril(result)
 
     var component = {
       view: function(){
@@ -53,10 +55,78 @@ describe('test for cssobj-mithril', function() {
 
   it('should keep all m functions', function() {
     var result = cssobj(obj)
-    var m = cssobj_mithril(result)
+    var m = mithril(result)
     expect(typeof m.old).equal('function')
     expect(typeof m.prop).equal('function')
     expect(typeof m.redraw).equal('function')
+  })
+
+}
+
+describe('test for preset suite', function() {
+
+  beforeEach(function() {
+    var result = cssobj(obj)
+    mc = mithril(result)
+  })
+
+  testSuite(it)
+
+})
+
+
+describe('test for rewrite', function() {
+
+  var path = require('path')
+  var fs = require('fs')
+  var exec = require('child_process').exec
+
+  before(function(done) {
+    // it may take 3 min to rewrite clone repo
+    this.timeout(180000)
+
+    // change all mithril into cssobj_mithril
+    var changeRequire = function() {
+      var file = path.join(__dirname, 'mithril.js/tests/test-api.js')
+      var content = fs.readFileSync(file, 'utf8')
+      fs.writeFileSync(file, content.replace('require("../mithril")', 'require("../../cssobj_mithril.js")'), 'utf8')
+
+      done()
+    }
+
+    // check if mithril.js exists
+    // If not, clone the repo
+    try {
+      fs.statSync(path.join(__dirname, 'mithril.js'))
+      changeRequire()
+    } catch(e) {
+      exec('git clone -b rewrite --single-branch https://github.com/lhorie/mithril.js', {cwd: __dirname}, function() {
+        changeRequire()
+      })
+    }
+  })
+
+  describe('test rewrite for preset suite', function() {
+    beforeEach(function() {
+      var result = cssobj(obj)
+
+      var mock = require("./mithril.js/test-utils/browserMock")()
+		  if (typeof global !== "undefined") global.window = mock, global.document = mock.document
+
+      mc = cssobj_mithril(require('./mithril.js/mithril.js'))(result)
+    })
+
+    testSuite(it)
+  })
+
+
+  it('should pass all the tests in rewrite', function(done) {
+    this.timeout(50000)
+    // Test failed
+    exec('cd mithril.js && npm test', {cwd: __dirname}, function(error, stdout, stderr) {
+      // console.log(444, error, 555, stdout, 666, stderr)
+      done(stderr)
+    })
   })
 
 })

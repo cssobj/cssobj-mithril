@@ -45,7 +45,7 @@ var com = {
     var result = cssobj(css, {local:true, onUpdate: displayCSS})
 
     // get mc instance from result and m
-    self.mc = cssobj_mithril(result, m)
+    self.mc = cssobj_mithril(m)(result)
 
     // mithril model part
     var name = 0

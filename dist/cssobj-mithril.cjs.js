@@ -1,8 +1,10 @@
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+/* global m */
 
-var m = _interopDefault(require('mithril'));
+
+/* Removed from v2.0.0, pass M or use global m */
+// import m from 'mithril'
 
 var type = {}.toString
 
@@ -14,45 +16,48 @@ function isString(object) {
 	return type.call(object) === "[object String]"
 }
 
-function bindM (cssStore, M) {
+function bindM (M) {
   M = M || m
   if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
 
-  var mapClass = function (attrs) {
+  var mapClass = function (cssobjResult, attrs) {
     if(!isObject(attrs)) return
     var classAttr = 'class' in attrs ? 'class' : 'className'
     var classObj = attrs[classAttr]
     if (classObj)
-      attrs[classAttr] = cssStore.mapClass(classObj)
+      attrs[classAttr] = cssobjResult.mapClass(classObj)
   }
 
-  var c = function (tag, pairs) {
-    var args = []
+  return function(cssobjResult) {
+    var c = function (tag, pairs) {
+      var args = []
 
-    for (var i = 1, length = arguments.length; i < length; i++) {
-      args[i - 1] = arguments[i]
+      for (var i = 1, length = arguments.length; i < length; i++) {
+        args[i - 1] = arguments[i]
+      }
+
+      if(isObject(tag)) return M.apply(null, [tag].concat(args))
+
+		  if (!isString(tag)) {
+			  throw new Error("selector in m(selector, attrs, children) should " +
+				                "be a string")
+		  }
+
+      mapClass(cssobjResult, pairs)
+      return M.apply( null, [cssobjResult.mapSel(tag)].concat(args) )
     }
 
-    if(isObject(tag)) return M.apply(null, [tag].concat(args))
+    c.old = M
 
-		if (!isString(tag)) {
-			throw new Error("selector in m(selector, attrs, children) should " +
-				"be a string")
-		}
+    for(var i in M) {
+      c[i] = M[i]
+    }
 
-    mapClass(pairs)
-    return M.apply( null, [cssStore.mapSel(tag)].concat(args) )
+    c.result = cssobjResult
+
+    return c
   }
 
-  c.old = M
-
-  for(var i in M) {
-    c[i] = M[i]
-  }
-
-  c.result = cssStore
-
-  return c
 }
 
 module.exports = bindM;
