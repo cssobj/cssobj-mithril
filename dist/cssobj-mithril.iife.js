@@ -1,66 +1,60 @@
 var cssobj_mithril = (function () {
-  'use strict';
+'use strict';
 
-  /* global m */
+/* global m */
 
 
-  /* Removed from v2.0.0, pass M or use global m */
-  // import m from 'mithril'
+/* Removed from v2.0.0, pass M or use global m */
+// import m from 'mithril'
 
-  var type = {}.toString
+function is(object, type) {
+	return {}.toString.call(object) === "[object "+ type +"]"
+}
 
-  function isObject(object) {
-  	return type.call(object) === "[object Object]"
-  }
+function bindM (M) {
+  M = M || m;
+  if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
 
-  function isString(object) {
-  	return type.call(object) === "[object String]"
-  }
+  var mapClass = function (cssobjResult, attrs) {
+    if(!is(attrs, 'Object')) return
+    var classAttr = 'class' in attrs ? 'class' : 'className';
+    var classObj = attrs[classAttr];
+    if (classObj)
+      attrs[classAttr] = cssobjResult.mapClass(classObj);
+  };
 
-  function bindM (M) {
-    M = M || m
-    if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
+  return function(cssobjResult) {
+    var c = function (tag, pairs) {
+      var args = [];
 
-    var mapClass = function (cssobjResult, attrs) {
-      if(!isObject(attrs)) return
-      var classAttr = 'class' in attrs ? 'class' : 'className'
-      var classObj = attrs[classAttr]
-      if (classObj)
-        attrs[classAttr] = cssobjResult.mapClass(classObj)
-    }
-
-    return function(cssobjResult) {
-      var c = function (tag, pairs) {
-        var args = []
-
-        for (var i = 1, length = arguments.length; i < length; i++) {
-          args[i - 1] = arguments[i]
-        }
-
-        if(isObject(tag)) return M.apply(null, [tag].concat(args))
-
-  		  if (!isString(tag)) {
-  			  throw new Error("selector in m(selector, attrs, children) should " +
-  				                "be a string")
-  		  }
-
-        mapClass(cssobjResult, pairs)
-        return M.apply( null, [cssobjResult.mapSel(tag)].concat(args) )
+      for (var i = 1, length = arguments.length; i < length; i++) {
+        args[i - 1] = arguments[i];
       }
 
-      c.old = M
+      if(is(tag, 'Object')) return M.apply(null, [tag].concat(args))
 
-      for(var i in M) {
-        c[i] = M[i]
-      }
+		  if (!is(tag, 'String')) {
+			  throw new Error("selector in m(selector, attrs, children) should " +
+				                "be a string")
+		  }
 
-      c.result = cssobjResult
+      mapClass(cssobjResult, pairs);
+      return M.apply( null, [cssobjResult.mapSel(tag)].concat(args) )
+    };
 
-      return c
+    c.old = M;
+
+    for(var i in M) {
+      c[i] = M[i];
     }
 
+    c.result = cssobjResult;
+
+    return c
   }
 
-  return bindM;
+}
+
+return bindM;
 
 }());
