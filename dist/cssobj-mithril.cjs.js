@@ -2,12 +2,11 @@
 
 /* global m */
 
-
 /* Removed from v2.0.0, pass M or use global m */
 // import m from 'mithril'
 
-function is(object, type) {
-	return {}.toString.call(object) === "[object "+ type +"]"
+function is (object, type) {
+  return {}.toString.call(object) === '[object ' + type + ']'
 }
 
 function bindM (M) {
@@ -15,14 +14,15 @@ function bindM (M) {
   if (!M) { throw new Error('cannot find mithril, make sure you have `m` available in this scope.') }
 
   var mapClass = function (cssobjResult, attrs) {
-    if(!is(attrs, 'Object')) { return }
+    if (!is(attrs, 'Object')) { return }
     var classAttr = 'class' in attrs ? 'class' : 'className';
     var classObj = attrs[classAttr];
-    if (classObj)
-      { attrs[classAttr] = cssobjResult.mapClass(classObj); }
+    if (classObj) {
+      attrs[classAttr] = cssobjResult.mapClass(classObj);
+    }
   };
 
-  var factory = function(cssobjResult) {
+  var factory = function (cssobjResult) {
     var c = function (tag, pairs) {
       var arguments$1 = arguments;
 
@@ -32,20 +32,20 @@ function bindM (M) {
         args[i - 1] = arguments$1[i];
       }
 
-      if(is(tag, 'Object')) { return M.apply(null, [tag].concat(args)) }
+      if (is(tag, 'Object')) { return M.apply(null, [tag].concat(args)) }
 
 		  if (!is(tag, 'String')) {
-			  throw new Error("selector in m(selector, attrs, children) should " +
-				                "be a string")
+			  throw new Error('selector in m(selector, attrs, children) should ' +
+				                'be a string')
 		  }
 
       mapClass(cssobjResult, pairs);
-      return M.apply( null, [cssobjResult.mapSel(tag)].concat(args) )
+      return M.apply(null, [cssobjResult.mapSel(tag)].concat(args))
     };
 
     c.old = M;
 
-    for(var i in M) {
+    for (var i in M) {
       c[i] = M[i];
     }
 
@@ -57,7 +57,6 @@ function bindM (M) {
   factory.m = M;
 
   return factory
-
 }
 
 module.exports = bindM;

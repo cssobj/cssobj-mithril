@@ -1,6 +1,10 @@
 # cssobj-mithril
 
-[![Join the chat at https://gitter.im/css-in-js/cssobj](https://badges.gitter.im/css-in-js/cssobj.svg)](https://gitter.im/css-in-js/cssobj) [![Build Status](https://travis-ci.org/cssobj/cssobj-mithril.svg?branch=master)](https://travis-ci.org/cssobj/cssobj-mithril)
+[![Join the chat at https://gitter.im/css-in-js/cssobj](https://badges.gitter.im/css-in-js/cssobj.svg)](https://gitter.im/css-in-js/cssobj)
+[![Build Status](https://travis-ci.org/cssobj/cssobj-mithril.svg?branch=master)](https://travis-ci.org/cssobj/cssobj-mithril)
+
+[![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 
 Apply cssobj local class names into mithril.
 
