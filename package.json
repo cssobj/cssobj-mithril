@@ -6,6 +6,7 @@
   "jsnext:main": "dist/cssobj-mithril.es.js",
   "scripts": {
     "pretest": "npm run build",
+    "lint": "standard ./lib",
     "test": "cd test && mocha",
     "report": "cd dist && gzip < cssobj-mithril.min.js > cssobj-mithril.min.gz && ls -lh && rm -f *.gz",
     "build": "rollup -c && uglifyjs dist/cssobj-mithril.iife.js -cm -o dist/cssobj-mithril.min.js",
