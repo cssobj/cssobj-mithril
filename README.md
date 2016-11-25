@@ -80,18 +80,28 @@ Please see **test/** folder for more info.
 
 ## API
 
-### `CommonJS: var m = require('cssobj-mithril')( m )( result )`
-### `Global:   var m = cssobj_mithril( m )( result )`
+### **STEP ONE**
 
-#### *PARAMS*
+### `CommonJS: var mFactory = require('cssobj-mithril')( M? )`
+### `Global:   var mFactory = cssobj_mithril( M? )`
 
-#### `m` (optional)
+#### `M` (optional)
 
 Which **mithril m** function to inject, can be omitted if `m` already in global space.
 
-#### `result`
+`mFactory.m` can be used as original `mithril m` function.
 
-**cssobj() result** Object, with `local=true`, or `local=false`.
+#### *RETURN*
+
+`mFactory` can be used to produce different `m` with each bound to an cssobj result instance.
+
+### **STEP TWO**
+
+### `var m = mFactory( cssobjResult )`
+
+#### `cssobjResult`
+
+**cssobj() result** Object instance, with `local=true`, or `local=false`.
 
 #### *RETURN*
 
@@ -101,17 +111,23 @@ Which **mithril m** function to inject, can be omitted if `m` already in global 
 
  - `m`: [Function] The signature is same as [m](http://mithril.js.org/mithril.html#signature)
  - `m.result`: [Object] Just a shortcut reference to `result` param passed in. `mc.result === result`
- - `m.old`: [Function] The old `mithril.m` reference
+ - `m.old`: [Function] The old `mithril m` reference
+
+## Usage
 
 The below 2 codes are equivalent:
 
 ```javascript
+const M = require('mithril')
+const m = require('cssobj-mithril')( M )( result )
+...
 view: function(){
   return m('li.item', {class:'active news'})
 }
 ```
 
 ```javascript
+// m.old === M
 view: function(){
   return m.old( result.mapSel('li.item'), {class: result.mapClass('active news')} )
 }
