@@ -10,25 +10,27 @@ function is(object, type) {
 
 function bindM (M) {
   M = M || m;
-  if (!M) throw new Error('cannot find mithril, make sure you have `m` available in this scope.')
+  if (!M) { throw new Error('cannot find mithril, make sure you have `m` available in this scope.') }
 
   var mapClass = function (cssobjResult, attrs) {
-    if(!is(attrs, 'Object')) return
+    if(!is(attrs, 'Object')) { return }
     var classAttr = 'class' in attrs ? 'class' : 'className';
     var classObj = attrs[classAttr];
     if (classObj)
-      attrs[classAttr] = cssobjResult.mapClass(classObj);
+      { attrs[classAttr] = cssobjResult.mapClass(classObj); }
   };
 
-  return function(cssobjResult) {
+  var factory = function(cssobjResult) {
     var c = function (tag, pairs) {
+      var arguments$1 = arguments;
+
       var args = [];
 
       for (var i = 1, length = arguments.length; i < length; i++) {
-        args[i - 1] = arguments[i];
+        args[i - 1] = arguments$1[i];
       }
 
-      if(is(tag, 'Object')) return M.apply(null, [tag].concat(args))
+      if(is(tag, 'Object')) { return M.apply(null, [tag].concat(args)) }
 
 		  if (!is(tag, 'String')) {
 			  throw new Error("selector in m(selector, attrs, children) should " +
@@ -48,7 +50,11 @@ function bindM (M) {
     c.result = cssobjResult;
 
     return c
-  }
+  };
+
+  factory.m = M;
+
+  return factory
 
 }
 

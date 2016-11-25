@@ -1,4 +1,5 @@
 // rollup.config.js
+const buble = require('rollup-plugin-buble')
 
 export default {
   entry: 'lib/cssobj-mithril.js',
@@ -7,6 +8,9 @@ export default {
   globals: {
     mithril: 'm'
   },
+  plugins: [
+    buble()
+  ],
   targets: [
     { format: 'iife', dest: 'dist/cssobj-mithril.iife.js' },
     { format: 'amd',  dest: 'dist/cssobj-mithril.amd.js'  },

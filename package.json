@@ -1,6 +1,6 @@
 {
   "name": "cssobj-mithril",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Apply cssobj local class names into mithril.",
   "main": "dist/cssobj-mithril.cjs.js",
   "jsnext:main": "dist/cssobj-mithril.es.js",
