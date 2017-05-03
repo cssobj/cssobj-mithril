@@ -100,7 +100,7 @@ describe('test for v1.x', function() {
       fs.statSync(path.join(__dirname, 'mithril.js'))
       changeRequire()
     } catch(e) {
-      exec('git clone -b next --single-branch https://github.com/MithrilJS/mithril.js', {cwd: __dirname}, function() {
+      exec('git clone -b next --single-branch https://github.com/MithrilJS/mithril.js && cd mithril.js && npm i', {cwd: __dirname}, function() {
         changeRequire()
       })
     }
