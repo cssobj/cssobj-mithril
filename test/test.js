@@ -75,7 +75,7 @@ describe('test for preset suite', function() {
 })
 
 
-describe('test for rewrite', function() {
+describe('test for v1.x', function() {
 
   var path = require('path')
   var fs = require('fs')
@@ -100,13 +100,13 @@ describe('test for rewrite', function() {
       fs.statSync(path.join(__dirname, 'mithril.js'))
       changeRequire()
     } catch(e) {
-      exec('git clone -b rewrite --single-branch https://github.com/lhorie/mithril.js', {cwd: __dirname}, function() {
+      exec('git clone -b next --single-branch https://github.com/MithrilJS/mithril.js', {cwd: __dirname}, function() {
         changeRequire()
       })
     }
   })
 
-  describe('test rewrite for preset suite', function() {
+  describe('test v1.x for preset suite', function() {
     beforeEach(function() {
       var result = cssobj(obj)
 
@@ -120,7 +120,7 @@ describe('test for rewrite', function() {
   })
 
 
-  it('should pass all the tests in rewrite', function(done) {
+  it('should pass all the tests in v1.x', function(done) {
     this.timeout(50000)
     // Test failed
     exec('cd mithril.js && npm test', {cwd: __dirname}, function(error, stdout, stderr) {
