@@ -83,7 +83,7 @@ describe('test for v1.x', function() {
 
   before(function(done) {
     // it may take 3 min to rewrite clone repo
-    this.timeout(180000)
+    this.timeout(1800000)
 
     // change all mithril into cssobj_mithril
     var changeRequire = function() {
