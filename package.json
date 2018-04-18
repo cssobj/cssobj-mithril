@@ -1,6 +1,6 @@
 {
   "name": "cssobj-mithril",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Apply cssobj local class names into mithril.",
   "main": "dist/cssobj-mithril.cjs.js",
   "jsnext:main": "dist/cssobj-mithril.es.js",
@@ -22,14 +22,14 @@
   "homepage": "https://github.com/cssobj/cssobj-mithril#readme",
   "author": "James Yang <jamesyang999@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "mithril": "^0.2.5",
     "chai": "^3.5.0",
     "cssobj-core": "^0.4.8",
     "cssobj-plugin-localize": "^2.0.0",
+    "mithril": "^0.2.5",
     "mithril-node-render": "^0.5.0",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "rollup-plugin-buble": "^0.19.2"
   }
 }
